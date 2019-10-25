@@ -1,0 +1,75 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "array",
+  "title": "The Root Schema",
+  "items": {
+    "$id": "#/items",
+    "type": "object",
+    "title": "The Items Schema",
+    "xmlSourcePath": "$.patients[*].patient[*]",
+    "required": [
+      "patientid",
+      "sex",
+      "state",
+      "name",
+      "age"
+    ],
+    "properties": {
+      "patientid": {
+        "xmlSourcePath": "$.patients[*].patient[*].id[*]",
+        "$id": "#/items/properties/patientid",
+        "type": "integer",
+        "title": "The Patientid Schema",
+        "default": 0,
+        "examples": [
+          1234
+        ]
+      },
+      "sex": {
+        "xmlSourcePath": "$.patients[*].patient[*].gender[*]",
+        "xmlFormatter": "gender",
+        "$id": "#/items/properties/sex",
+        "type": "string",
+        "title": "The Sex Schema",
+        "default": "",
+        "examples": [
+          "male"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "state": {
+        "xmlSourcePath": "$.patients[*].patient[*].state[*]",
+        "xmlFormatter": "state",
+        "$id": "#/items/properties/state",
+        "type": "string",
+        "title": "The State Schema",
+        "default": "",
+        "pattern": "^(.*)$"
+      },
+      "name": {
+        "xmlSourcePath": "$.patients[*].patient[*].name[*]",
+        "$id": "#/items/properties/name",
+        "type": "string",
+        "title": "The Name Schema",
+        "default": "",
+        "examples": [
+          "John Smith"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "age": {
+        "xmlSourcePath": "$.patients[*].patient[*].dateOfBirth[*]",
+        "xmlFormatter": "dateOfBirthToAge",
+        "$id": "#/items/properties/age",
+        "type": "integer",
+        "title": "The Age Schema",
+        "default": 0,
+        "examples": [
+          55
+        ]
+      }
+    }
+  }
+}
