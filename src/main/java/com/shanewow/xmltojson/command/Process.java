@@ -26,9 +26,12 @@ public class Process {
     private static final Logger LOGGER = LoggerFactory.getLogger(Process.class);
 
     private final Gson gson;
+    private XMLInputFactory xmlInputFactory;
 
-    public Process(Gson gson) {
+    public Process(Gson gson, XMLInputFactory xmlInputFactory) {
+
         this.gson = gson;
+        this.xmlInputFactory = xmlInputFactory;
     }
 
     @ShellMethod("Load and output the parsed schema to the console")
@@ -60,7 +63,7 @@ public class Process {
         //process xml which will store collected values in the 'xmlDataStore' map interface
         try(final FileReader fileReader = new FileReader(ResourceUtils.getFile(xmlPath))){
             //create basic Java XMLStreamReader from file reader
-            final XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(fileReader);
+            final XMLStreamReader xmlReader = xmlInputFactory.createXMLStreamReader(fileReader);
             //run processor using stream reader
             processor.process(xmlReader);
         }
