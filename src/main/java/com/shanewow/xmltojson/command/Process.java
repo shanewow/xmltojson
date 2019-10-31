@@ -68,7 +68,7 @@ public class Process {
         }
 
         //debug the data captured from the xml stream
-        LOGGER.debug("Captured Data: {}", xmlDataStore);
+        LOGGER.info("Captured Data: {}", xmlDataStore);
 
         //create file writer if outputPath is set otherwise use string writer
         final Writer writer = "".equals(outputPath)

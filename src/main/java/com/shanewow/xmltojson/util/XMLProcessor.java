@@ -60,7 +60,7 @@ public class XMLProcessor {
         currentLocation = String.format("%s[%s]", currentLocationWithoutIndex, elementIndex.computeIfAbsent(currentLocationWithoutIndex, XMLProcessor::createIfNull).getAndIncrement());
         final String currentLocationWithWildCards = currentLocation.replaceAll("\\[[0-9]*\\]", "[*]");
 
-        LOGGER.info("Start Element: {}", currentLocation);
+        LOGGER.debug("Start Element: {}", currentLocation);
 
         if (processLocation(currentLocationWithoutIndex, currentLocation, reader)) {
             endElement(reader);
@@ -83,12 +83,12 @@ public class XMLProcessor {
                 ? currentLocation.substring(0, currentLocation.lastIndexOf("."))
                 : currentLocation;
 
-        LOGGER.info("End Element: {} New Location: {}", reader.getLocalName(), currentLocation);
+        LOGGER.debug("End Element: {} New Location: {}", reader.getLocalName(), currentLocation);
     }
 
     private boolean processLocation(String matchableLocation, String actualLocation, XMLStreamReader reader) throws XMLStreamException {
         if (locationToProcessor.containsKey(matchableLocation)) {
-            LOGGER.info("Processing Location: {}", matchableLocation);
+            LOGGER.debug("Processing Location: {}", matchableLocation);
             final LocationProcessor elementProcessor = locationToProcessor.get(matchableLocation);
             return elementProcessor.process(reader, matchableLocation, actualLocation);
         }
