@@ -29,7 +29,6 @@ public class Process {
     private XMLInputFactory xmlInputFactory;
 
     public Process(Gson gson, XMLInputFactory xmlInputFactory) {
-
         this.gson = gson;
         this.xmlInputFactory = xmlInputFactory;
     }
@@ -97,7 +96,12 @@ public class Process {
         File file = new File(filePath);
         File dir = file.getParentFile();
         if (!dir.exists()) dir.mkdirs();
-        file.createNewFile();
+        boolean fileWasCreated = file.createNewFile();
+        if(fileWasCreated){
+            LOGGER.debug("Created new file: {}", filePath);
+        }else {
+            LOGGER.debug("File already exists here: {}", filePath);
+        }
         return file;
     }
 }
