@@ -13,15 +13,15 @@ public class FormatterFactory {
 
     private static final Map<String, String> STATE_MAP = Collections.unmodifiableMap(Map.of(
 
-                //abbreviation to full
+            //abbreviation to full
             "MI", "Michigan",
             "OH", "Ohio",
-                //TODO complete state mapping
+            //TODO complete state mapping
 
-                //full to abbreviation
+            //full to abbreviation
             "Michigan", "MI",
             "Ohio", "OH"
-                //TODO complete state mapping
+            //TODO complete state mapping
     ));
 
     private static final Map<String, String> GENDER_MAP = Collections.unmodifiableMap(Map.of(
@@ -58,9 +58,9 @@ public class FormatterFactory {
             }
 
 
-        ));
+    ));
 
-    public static Function<String, String> getFormatter(SchemaItem.FORMATTER formatter){
+    public static Function<String, String> getFormatter(SchemaItem.FORMATTER formatter) {
         return FORMATTERS.get(formatter);
     }
 

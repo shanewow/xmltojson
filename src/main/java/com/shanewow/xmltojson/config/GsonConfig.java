@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 public class GsonConfig {
 
     @Bean
-    public Gson gson(){
+    public Gson gson() {
         return new GsonBuilder()
                 .setPrettyPrinting()
                 .create();

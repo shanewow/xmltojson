@@ -1,5 +1,5 @@
-
 package com.shanewow.xmltojson.model.schema;
+
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

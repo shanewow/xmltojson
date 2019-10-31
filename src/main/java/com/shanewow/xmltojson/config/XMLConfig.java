@@ -7,7 +7,7 @@ import javax.xml.stream.XMLInputFactory;
 public class XMLConfig {
 
     @Bean
-    public XMLInputFactory xmlConfig(){
+    public XMLInputFactory xmlConfig() {
         XMLInputFactory factory = XMLInputFactory.newInstance();
         // disable external entities
         factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);

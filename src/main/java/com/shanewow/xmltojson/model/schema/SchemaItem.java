@@ -1,5 +1,6 @@
 
 package com.shanewow.xmltojson.model.schema;
+
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
@@ -11,7 +12,7 @@ public class SchemaItem {
 
     public enum TYPE {integer, number, string, object, array}
 
-    public enum FORMATTER {dateOfBirthToAge, state, gender};
+    public enum FORMATTER {dateOfBirthToAge, state, gender}
 
     @SerializedName("$id")
     private String id;

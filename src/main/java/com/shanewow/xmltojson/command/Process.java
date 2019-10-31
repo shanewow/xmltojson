@@ -60,7 +60,7 @@ public class Process {
         final XMLProcessor processor = new XMLProcessor(processorMap);
 
         //process xml which will store collected values in the 'xmlDataStore' map interface
-        try(final FileReader fileReader = new FileReader(ResourceUtils.getFile(xmlPath))){
+        try (final FileReader fileReader = new FileReader(ResourceUtils.getFile(xmlPath))) {
             //create basic Java XMLStreamReader from file reader
             final XMLStreamReader xmlReader = xmlInputFactory.createXMLStreamReader(fileReader);
             //run processor using stream reader
@@ -79,7 +79,7 @@ public class Process {
         JsonGenerator.toJson(schemaRoot, xmlDataStore, writer);
 
         //if string writer, output string to console
-        if(writer instanceof StringWriter){
+        if (writer instanceof StringWriter) {
             return writer.toString();
         }
 
@@ -97,9 +97,9 @@ public class Process {
         File dir = file.getParentFile();
         if (!dir.exists()) dir.mkdirs();
         boolean fileWasCreated = file.createNewFile();
-        if(fileWasCreated){
+        if (fileWasCreated) {
             LOGGER.debug("Created new file: {}", filePath);
-        }else {
+        } else {
             LOGGER.debug("File already exists here: {}", filePath);
         }
         return file;
