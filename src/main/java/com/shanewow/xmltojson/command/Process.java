@@ -15,9 +15,7 @@ import org.springframework.util.ResourceUtils;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +40,8 @@ public class Process {
     @ShellMethod("Process xml file using the json schema")
     public String processSchema(
             @ShellOption String schemaPath,
-            @ShellOption String xmlPath
+            @ShellOption String xmlPath,
+            @ShellOption(defaultValue = "") String outputPath
     ) throws IOException, XMLStreamException {
 
         //parse json schema instructions
@@ -66,16 +65,36 @@ public class Process {
             processor.process(xmlReader);
         }
 
-        //output captured data to console
+        //debug the data captured from the xml stream
         LOGGER.debug("Captured Data: {}", xmlDataStore);
 
-        // generate and write json using schema and xmlDataStore to StringWriter, this could easily be modified to write to a file stream if became to large
-        final StringWriter writer = new StringWriter();
+        //create file writer if outputPath is set otherwise use string writer
+        final Writer writer = "".equals(outputPath)
+                ? new StringWriter()
+                : new FileWriter(createDirectoriesAndFile(outputPath));
+
+        //generate and write json to writer
         JsonGenerator.toJson(schemaRoot, xmlDataStore, writer);
-        return writer.toString();
+
+        //if string writer, output string to console
+        if(writer instanceof StringWriter){
+            return writer.toString();
+        }
+
+        //output message with output path to console
+        return String.format("Successfully wrote json to output path: %s", outputPath);
+
     }
 
     private static String readFile(String path) throws IOException {
         return Files.readString(ResourceUtils.getFile(path).toPath());
+    }
+
+    private static File createDirectoriesAndFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        File dir = file.getParentFile();
+        if (!dir.exists()) dir.mkdirs();
+        file.createNewFile();
+        return file;
     }
 }

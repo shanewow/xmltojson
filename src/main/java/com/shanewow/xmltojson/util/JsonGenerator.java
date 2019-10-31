@@ -56,10 +56,11 @@ public class JsonGenerator {
         jsonWriter.beginArray();
         LongStream.range(0, getCount(data, String.format("%s[*]", location)))
                 .forEach(index -> {
+                    final String locationWithIndex = String.format("%s[%s]", location, index);
                     try {
-                        writeItem(item.getItems(), String.format("%s[%s]", location, index), data, jsonWriter);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        writeItem(item.getItems(), locationWithIndex, data, jsonWriter);
+                    } catch (Exception e) {
+                        throw new RuntimeException(String.format("Unexpected exception while writing [%s] to json.", locationWithIndex));
                     }
                 });
         jsonWriter.endArray();

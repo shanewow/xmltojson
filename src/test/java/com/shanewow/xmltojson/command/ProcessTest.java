@@ -28,13 +28,32 @@ class ProcessTest {
     }
 
     @Test
-    void processSchema() throws IOException, XMLStreamException {
+    void processSchema__WithDefaultOutputPath() throws IOException, XMLStreamException {
         final Process process = new Process(new GsonBuilder().setPrettyPrinting().create());
-        final String actualOutput = process.processSchema("classpath:mock-schema.json", "classpath:mock-input.xml");
+        final String actualOutput = process.processSchema("classpath:mock-schema.json", "classpath:mock-input.xml", "");
         LOGGER.info(actualOutput);
         assertEquals(
                 Files.readString(ResourceUtils.getFile("classpath:expected-output.json").toPath()),
                 actualOutput
+        );
+    }
+
+    @Test
+    void processSchema__WithOutputPath() throws IOException, XMLStreamException {
+        final Process process = new Process(new GsonBuilder().setPrettyPrinting().create());
+        final String actualOutput = process.processSchema("classpath:mock-schema.json", "classpath:mock-input.xml", "test-output/test.json");
+        LOGGER.info(actualOutput);
+
+        //validate message
+        assertEquals(
+                "Successfully wrote json to output path: test-output/test.json",
+                actualOutput
+        );
+
+        //validate file contents
+        assertEquals(
+                Files.readString(ResourceUtils.getFile("classpath:expected-output.json").toPath()),
+                Files.readString(ResourceUtils.getFile("test-output/test.json").toPath())
         );
     }
 }
