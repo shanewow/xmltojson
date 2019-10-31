@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.2.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "2.7"
 }
 
 group = 'com.shanewow'
@@ -34,4 +36,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+bootRun {
+    standardInput = System.in
 }
