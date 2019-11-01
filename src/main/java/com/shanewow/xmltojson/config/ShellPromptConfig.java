@@ -8,8 +8,10 @@ import org.springframework.shell.jline.PromptProvider;
 
 @Configuration
 public class ShellPromptConfig {
+
     @Bean
     public PromptProvider myPromptProvider() {
         return () -> new AttributedString("xmltojson:>", AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
     }
+
 }
