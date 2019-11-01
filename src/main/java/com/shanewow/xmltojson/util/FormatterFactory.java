@@ -60,7 +60,7 @@ public class FormatterFactory {
 
     ));
 
-    public static Function<String, String> getFormatter(SchemaItem.FORMATTER formatter) {
+    public static Function<String, String> getFormatter(final SchemaItem.FORMATTER formatter) {
         return FORMATTERS.get(formatter);
     }
 

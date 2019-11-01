@@ -27,24 +27,24 @@ public class Process {
     private static final Logger LOGGER = LoggerFactory.getLogger(Process.class);
 
     private final Gson gson;
-    private XMLInputFactory xmlInputFactory;
+    private final XMLInputFactory xmlInputFactory;
 
-    public Process(Gson gson, XMLInputFactory xmlInputFactory) {
+    public Process(final Gson gson, final XMLInputFactory xmlInputFactory) {
         this.gson = gson;
         this.xmlInputFactory = xmlInputFactory;
     }
 
     @ShellMethod("Load and output the parsed schema to the console")
-    public String validateSchema(@ShellOption String path) throws IOException {
+    public String validateSchema(@ShellOption final String path) throws IOException {
         final SchemaRoot schemaRoot = gson.fromJson(readFile(path), SchemaRoot.class);
         return gson.toJson(schemaRoot);
     }
 
     @ShellMethod("Process xml file using the json schema")
     public String processSchema(
-            @ShellOption String schemaPath,
-            @ShellOption String xmlPath,
-            @ShellOption(defaultValue = Defaults.BLANK_XML_PATH) String outputPath
+            @ShellOption final String schemaPath,
+            @ShellOption final String xmlPath,
+            @ShellOption(defaultValue = Defaults.BLANK_XML_PATH) final String outputPath
     ) throws IOException, XMLStreamException {
 
         //parse json schema instructions
@@ -89,13 +89,13 @@ public class Process {
 
     }
 
-    private static String readFile(String path) throws IOException {
+    private static String readFile(final String path) throws IOException {
         return Files.readString(ResourceUtils.getFile(path).toPath());
     }
 
-    private static File createDirectoriesAndFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        File dir = file.getParentFile();
+    private static File createDirectoriesAndFile(final String filePath) throws IOException {
+        final File file = new File(filePath);
+        final File dir = file.getParentFile();
         if (dir != null && !dir.exists()) dir.mkdirs();
         boolean fileWasCreated = file.createNewFile();
         if (fileWasCreated) {
