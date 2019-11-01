@@ -1,11 +1,11 @@
 package com.shanewow.xmltojson.command;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.ResourceUtils;
 
 import javax.xml.stream.XMLInputFactory;
@@ -15,24 +15,16 @@ import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProcessTest {
+@SpringBootTest
+class IntegrationProcessTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationProcessTest.class);
 
-    private static Gson gson;
-    private static XMLInputFactory xmlInputFactory;
+    @Autowired
+    private Gson gson;
 
-    @BeforeAll
-    static void setup(){
-        gson = new GsonBuilder().setPrettyPrinting().create();
-
-        XMLInputFactory factory = XMLInputFactory.newInstance();
-        // disable external entities
-        factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
-        factory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
-
-        xmlInputFactory = factory;
-    }
+    @Autowired
+    private XMLInputFactory xmlInputFactory;
 
     @Test
     void validateSchema() throws IOException {
