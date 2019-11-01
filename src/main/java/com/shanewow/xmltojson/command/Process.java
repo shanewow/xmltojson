@@ -96,7 +96,7 @@ public class Process {
     private static File createDirectoriesAndFile(String filePath) throws IOException {
         File file = new File(filePath);
         File dir = file.getParentFile();
-        if (!dir.exists()) dir.mkdirs();
+        if (dir != null && !dir.exists()) dir.mkdirs();
         boolean fileWasCreated = file.createNewFile();
         if (fileWasCreated) {
             LOGGER.debug("Created new file: {}", filePath);
