@@ -1,9 +1,11 @@
 package com.shanewow.xmltojson.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.xml.stream.XMLInputFactory;
 
+@Configuration
 public class XMLConfig {
 
     @Bean

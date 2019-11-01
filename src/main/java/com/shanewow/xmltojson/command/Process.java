@@ -1,6 +1,7 @@
 package com.shanewow.xmltojson.command;
 
 import com.google.gson.Gson;
+import com.shanewow.xmltojson.config.Defaults;
 import com.shanewow.xmltojson.model.schema.SchemaRoot;
 import com.shanewow.xmltojson.util.JsonGenerator;
 import com.shanewow.xmltojson.util.XMLProcessor;
@@ -43,7 +44,7 @@ public class Process {
     public String processSchema(
             @ShellOption String schemaPath,
             @ShellOption String xmlPath,
-            @ShellOption(defaultValue = "") String outputPath
+            @ShellOption(defaultValue = Defaults.BLANK_XML_PATH) String outputPath
     ) throws IOException, XMLStreamException {
 
         //parse json schema instructions
@@ -71,7 +72,7 @@ public class Process {
         LOGGER.info("Captured Data: {}", xmlDataStore);
 
         //create file writer if outputPath is set otherwise use string writer
-        final Writer writer = "".equals(outputPath)
+        final Writer writer = Defaults.BLANK_XML_PATH.equals(outputPath)
                 ? new StringWriter()
                 : new FileWriter(createDirectoriesAndFile(outputPath));
 
